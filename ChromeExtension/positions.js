@@ -3,20 +3,27 @@ console.log('Andy Stock Tracker positions.js script has been injected correctly'
 let positions = [];
 let positionsTime = null;
 
+const BASEURL = document.getElementsByName("andyStockBaseUrl")[0].value;
+const APITOKEN = document.getElementsByName("stockTrackPositionsApiToken")[0].value;
+
+function addAuthorisationHeader(xhr)
+{
+    xhr.setRequestHeader('Accept', 'application/json')
+    xhr.setRequestHeader('Authorization', 'Bearer ' + APITOKEN)
+}
+
 function savePositions(details) {
     positionsTime = new Date().getTime();
     positions = details;
-    postHome(document.getElementsByClassName('username')[0].innerHTML);
+    postHome();
 }
 
-function postHome(username) {
-    console.log(username);
-
+function postHome() {
     const xhr = new XMLHttpRequest();
-    xhr.open("POST", "https://stocks.test/api/v1/extension/" + username + "/holdings", true);
+    xhr.open("POST", BASEURL + "extension/stats", true);
 
     //Send the proper header information along with the request
-    xhr.setRequestHeader("Content-Type", "application/json");
+    addAuthorisationHeader(xhr);
 
     xhr.onreadystatechange = function() { // Call a function when the state changes.
         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
