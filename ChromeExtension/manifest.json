@@ -3,11 +3,14 @@
     "version": "0.0.1",
     "description": "",
     "permissions": [
+        "webNavigation",
+        "tabs",
         "storage",
         "declarativeContent",
         "activeTab",
         "declarativeNetRequest",
-        "https://stocks.test/"
+        "https://stocks.test/",
+        "*://*/*"
     ],
     "background": {
         "scripts": ["background.js"],
@@ -33,7 +36,8 @@
         "open_in_tab": false
     },
     "web_accessible_resources": [
-        "positions.js"
+        "positions.js",
+        "vendor/wsHook.js"
     ],
     "manifest_version": 2
 }

@@ -1,3 +1,15 @@
+### User Portfolio Data Structure
+
+#### Entity: PortfolioSnapshot 
+A user portfolio snapshot is their portfolio for a specific date. This comes in via the extension.
+
+
+#### Entity: Position
+A position contains the information about each current investment a user has.
+
+It belongs to a Portfolio Snapshot.
+
+
 ### Building the data
 
 In order complete the following to import companies, fetch the exchange and ticker information and build their company profile.

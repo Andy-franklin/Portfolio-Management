@@ -34,7 +34,7 @@ function injectCode(apiToken) {
         { active: true, windowId: chrome.windows.WINDOW_ID_CURRENT },
         function(tabs) {
             const { id: tabId } = tabs[0].url;
-            chrome.tabs.executeScript(tabId, {code: monkeyPatchCode, runAt: 'document_end'}, function () {
+            chrome.tabs.executeScript(tabId, {code: monkeyPatchCode, runAt: 'document_start'}, function () {
                 console.log('Monkey Patch Injected')
             });
         }
@@ -125,7 +125,7 @@ function requestUser(apiToken) {
 function handleValidUser() {
     setupDisplay(true);
     //Add the positions tracking code
-    injectCode(apiToken);
+    // injectCode(apiToken);
 }
 
 function handleNonValidUser() {
