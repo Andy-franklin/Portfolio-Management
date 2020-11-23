@@ -33,7 +33,8 @@ class CreatePositionsTable extends Migration
             $table->float('quantity');
             $table->boolean('active');
             $table->dateTime('last_held');
-            $table->unsignedBigInteger('company_id');
+            $table->string('ticker_212');
+            $table->unsignedBigInteger('company_id')->nullable();
             $table->foreign('company_id')->references('id')->on('companies');
             $table->unsignedBigInteger('portfolio_snapshot_id');
             $table->foreign('portfolio_snapshot_id')->references('id')->on('portfolio_snapshot');

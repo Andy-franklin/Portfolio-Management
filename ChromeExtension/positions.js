@@ -39,7 +39,7 @@ function postHome() {
         }
     }
 
-    xhr.send(positions);
+    xhr.send(JSON.stringify(positions));
 }
 
 /**

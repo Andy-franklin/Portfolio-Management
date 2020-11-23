@@ -2,47 +2,7 @@ const BASEURL = 'https://212.test/api/';
 let apiToken = '';
 let user = {};
 
-/*
-    Inject our code to capture the stats response data
- */
-function injectCode(apiToken) {
-    let resourceUrl = chrome.runtime.getURL('positions.js');
-    const monkeyPatchCode = `
-        var existing = document.getElementById('stockTrackPositionsJs');
-
-        var andyStockBaseUrl = document.createElement('input');
-        andyStockBaseUrl.setAttribute('type', 'hidden');
-        andyStockBaseUrl.setAttribute('value', '${BASEURL}');
-        andyStockBaseUrl.setAttribute('name', 'andyStockBaseUrl');
-
-        var stockTrackPositionsApiToken = document.createElement('input');
-        stockTrackPositionsApiToken.setAttribute('type', 'hidden');
-        stockTrackPositionsApiToken.setAttribute('value', '${apiToken}');
-        stockTrackPositionsApiToken.setAttribute('name', 'stockTrackPositionsApiToken');
-
-        (document.head || document.documentElement).appendChild(andyStockBaseUrl);
-        (document.head || document.documentElement).appendChild(stockTrackPositionsApiToken);
-
-        if (existing === null) {
-            var s = document.createElement('script');
-            s.src = '${resourceUrl}';
-            s.setAttribute('id', 'stockTrackPositionsJs');
-            (document.head || document.documentElement).appendChild(s);
-        }
-    `;
-    chrome.tabs.query(
-        { active: true, windowId: chrome.windows.WINDOW_ID_CURRENT },
-        function(tabs) {
-            const { id: tabId } = tabs[0].url;
-            chrome.tabs.executeScript(tabId, {code: monkeyPatchCode, runAt: 'document_start'}, function () {
-                console.log('Monkey Patch Injected')
-            });
-        }
-    );
-}
-
 let triggerCapture = document.getElementById('triggerCapture');
-
 triggerCapture.onclick = function(element) {
     chrome.tabs.query(
         { active: true, windowId: chrome.windows.WINDOW_ID_CURRENT },
